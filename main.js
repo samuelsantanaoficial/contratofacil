@@ -110,7 +110,9 @@ function gerarPDF() {
         }
     };
 
-    pdfMake.createPdf(docDefinition).open();
+    const nomeArquivo = `Contrato - ${cli.nome}.pdf`;
+ // pdfMake.createPdf(docDefinition).open();
+    pdfMake.createPdf(docDefinition).download(nomeArquivo);
 }
 
 // Funções de Persistência e Backup (Atualizadas para salvar APENAS dados da empresa)
