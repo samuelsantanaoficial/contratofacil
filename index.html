@@ -11,7 +11,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-    
+
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -22,7 +22,7 @@
         }
     </script>
     <link rel="manifest" href="./manifest.json">
-    
+
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Contrato">
@@ -116,14 +116,15 @@
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed bg-white shadow-none" type="button"
                             data-bs-toggle="collapse" data-bs-target="#collapseDetails">
-                            <i class="bi bi-list-check me-2 text-primary"></i> Detalhes & Cláusulas
+                            <i class="bi bi-list-check me-2 text-primary"></i> Cláusula Extra
                         </button>
                     </h2>
                     <div id="collapseDetails" class="accordion-collapse collapse" data-bs-parent="#accordionDetalhes">
                         <div class="accordion-body bg-white">
                             <div class="mb-0">
                                 <label class="form-label small text-muted mb-1">Cláusula Extra</label>
-                                <textarea id="clausulaExtra" class="form-control bg-light border-0" rows="2"></textarea>
+                                <textarea id="clausulaExtra" class="form-control bg-light border-0" rows="2"
+                                    placeholder="Ex: A CONTRATANTE autoriza o uso de imagens e registros do serviço prestado pela CONTRATADA para fins de portfólio e divulgação institucional."></textarea>
                             </div>
                         </div>
                     </div>
