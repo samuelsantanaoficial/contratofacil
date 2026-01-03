@@ -52,7 +52,7 @@ function gerarPDF() {
             { text: '1. DAS PARTES', style: 'sectionTitle' },
 
             { text: 'CONTRATADA:', style: 'label' },
-            { text: `${eu.nome}, inscrito(a) no CPF/CNPJ sob nº ${eu.cpf}, com endereço em ${eu.end}.`, style: 'textBody' },
+            { text: `${eu.nome}, inscrito(a) no CPF/CNPJ sob nº ${eu.cpf}, com endereço em ${eu.end}, ${eu.cidade}.`, style: 'textBody' },
             { text: `Dados Bancários (Pix): ${eu.pix}`, style: 'textBody', margin: [0, 0, 0, 10] },
 
             { text: 'CONTRATANTE:', style: 'label' },
@@ -97,8 +97,8 @@ function gerarPDF() {
 
             {
                 columns: [
-                    { stack: [{ text: '_______________________________' }, { text: 'CONTRATADA', fontSize: 10, bold: true }], alignment: 'center' },
-                    { stack: [{ text: '_______________________________' }, { text: 'CONTRATANTE', fontSize: 10, bold: true }], alignment: 'center' }
+                    { stack: [{ text: '____________________________________' }, { text: `${eu.nome}\nCONTRATADA`, fontSize: 9, bold: true }], alignment: 'center' },
+                    { stack: [{ text: '____________________________________' }, { text: `${cli.nome}\nCONTRATANTE`, fontSize: 9, bold: true }], alignment: 'center' }
                 ]
             }
         ],
@@ -121,11 +121,18 @@ function salvarConfiguracoes() {
         pix: document.getElementById('minhaChavePix').value,
         endereco: document.getElementById('meuEndereco').value,
         cidade: document.getElementById('minhaCidade').value
-        // Removemos prazo e uso daqui
     };
     localStorage.setItem('configContrato', JSON.stringify(dados));
-    alert('Dados da empresa salvos com sucesso!');
-    new bootstrap.Collapse(document.getElementById('areaConfig')).hide();
+    
+    // Feedback visual mais sutil (opcional, ou manter o alert)
+    alert('Dados salvos com sucesso!'); 
+
+    // Fecha o Modal usando a API do Bootstrap 5
+    const modalEl = document.getElementById('modalConfig');
+    const modal = bootstrap.Modal.getInstance(modalEl); 
+    if (modal) {
+        modal.hide();
+    }
 }
 
 function carregarDados() {
