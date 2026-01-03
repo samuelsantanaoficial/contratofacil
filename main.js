@@ -42,7 +42,7 @@ function gerarPDF() {
     const docDefinition = {
         pageSize: 'A4',
         pageMargins: [30, 30, 30, 30],
-        info: { title: `Contrato - ${cli.nome}` },
+        info: { title: `Contrato - ${cli.nome} - ${new Date().toISOString().split('T')[0]}` },
         content: [
             { text: 'CONTRATO DE PRESTAÇÃO DE SERVIÇOS', style: 'header' },
 
@@ -110,7 +110,7 @@ function gerarPDF() {
         }
     };
 
-    const nomeArquivo = `Contrato - ${cli.nome}.pdf`;
+    const nomeArquivo = `Contrato - ${cli.nome} - ${new Date().toISOString().split('T')[0]}.pdf`;
  // pdfMake.createPdf(docDefinition).open();
     pdfMake.createPdf(docDefinition).download(nomeArquivo);
 }
@@ -156,7 +156,7 @@ function exportarBackup() {
     const blob = new Blob([dados], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = `backup-empresa-${new Date().toISOString().split('T')[0]}.json`;
+    a.download = `backup-${new Date().toISOString().split('T')[0]}.json`;
     a.click();
 }
 
