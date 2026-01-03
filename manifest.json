@@ -3,8 +3,8 @@
 	"short_name": "Contrato",
 	"start_url": "index.html",
 	"display": "standalone",
-	"background_color": "#212529",
-	"theme_color": "#212529",
+	"background_color": "#deddda",
+	"theme_color": "#deddda",
 	"icons": [
 		{
 			"src": "maskable_icon_x512.png",
