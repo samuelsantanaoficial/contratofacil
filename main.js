@@ -111,8 +111,17 @@ function gerarPDF() {
     };
 
     const nomeArquivo = `Contrato - ${cli.nome} - ${servico.data}.pdf`;
- // pdfMake.createPdf(docDefinition).open();
-    pdfMake.createPdf(docDefinition).download(nomeArquivo);
+    const pdfGenerator = pdfMake.createPdf(docDefinition);
+
+    // Verificação simples se é dispositivo Apple móvel
+    const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+    if (isIos) {
+        pdfGenerator.open();
+    } else {
+        pdfGenerator.download(nomeArquivo);
+    }
 }
 
 // Funções de Persistência e Backup (Atualizadas para salvar APENAS dados da empresa)
@@ -125,13 +134,13 @@ function salvarConfiguracoes() {
         cidade: document.getElementById('minhaCidade').value
     };
     localStorage.setItem('configContrato', JSON.stringify(dados));
-    
+
     // Feedback visual mais sutil (opcional, ou manter o alert)
-    alert('Dados salvos com sucesso!'); 
+    alert('Dados salvos com sucesso!');
 
     // Fecha o Modal usando a API do Bootstrap 5
     const modalEl = document.getElementById('modalConfig');
-    const modal = bootstrap.Modal.getInstance(modalEl); 
+    const modal = bootstrap.Modal.getInstance(modalEl);
     if (modal) {
         modal.hide();
     }
