@@ -183,4 +183,40 @@ function importarBackup(input) {
     reader.readAsText(file);
 }
 
-window.onload = carregarDados;
+function mascaraCpfCnpj(e) {
+    let v = e.target.value.replace(/\D/g, ""); // Remove tudo que não é dígito
+
+    // Trava em 14 números (CNPJ)
+    if (v.length > 14) v = v.slice(0, 14);
+
+    // Verifica se é CPF (até 11) ou CNPJ (até 14)
+    if (v.length > 11) {
+        // Formata CNPJ: 00.000.000/0000-00
+        v = v.replace(/^(\d{2})(\d)/, "$1.$2");
+        v = v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+        v = v.replace(/\.(\d{3})(\d)/, ".$1/$2");
+        v = v.replace(/(\d{4})(\d)/, "$1-$2");
+    } else {
+        // Formata CPF: 000.000.000-00
+        v = v.replace(/(\d{3})(\d)/, "$1.$2");
+        v = v.replace(/(\d{3})(\d)/, "$1.$2");
+        v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+    }
+
+    e.target.value = v;
+}
+
+// window.onload = carregarDados;
+
+window.onload = function() {
+    // Carrega os dados salvos (sua função original)
+    carregarDados();
+
+    // Aplica a máscara no campo do CLIENTE
+    const inputCli = document.getElementById('cliCPF');
+    if (inputCli) inputCli.addEventListener('input', mascaraCpfCnpj);
+
+    // Aplica a máscara no campo MEUS DADOS (Configurações)
+    const inputMeu = document.getElementById('meuCPF');
+    if (inputMeu) inputMeu.addEventListener('input', mascaraCpfCnpj);
+};
