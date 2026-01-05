@@ -111,17 +111,8 @@ function gerarPDF() {
     };
 
     const nomeArquivo = `Contrato - ${cli.nome} - ${servico.data}.pdf`;
-    const pdfGenerator = pdfMake.createPdf(docDefinition);
-
-    // Verificação simples se é dispositivo Apple móvel
-    const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-
-    if (isIos) {
-        pdfGenerator.open();
-    } else {
-        pdfGenerator.download(nomeArquivo);
-    }
+    
+    pdfMake.createPdf(docDefinition).download(nomeArquivo);
 }
 
 // Funções de Persistência e Backup (Atualizadas para salvar APENAS dados da empresa)
