@@ -111,12 +111,12 @@ function gerarPDF() {
     };
 
     const nomeArquivo = `Contrato - ${cli.nome} - ${servico.data}.pdf`;
-    
+
     pdfMake.createPdf(docDefinition).download(nomeArquivo);
 }
 
 // Funções de Persistência e Backup (Atualizadas para salvar APENAS dados da empresa)
-function salvarConfiguracoes() {
+function salvarConfiguracoes() {pdfMake.createPdf(docDefinition).download(nomeArquivo);
     const dados = {
         nome: document.getElementById('meuNome').value,
         cpf: document.getElementById('meuCPF').value,
