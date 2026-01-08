@@ -1,4 +1,4 @@
-const CACHE_NAME = 'v1.2.6';
+const CACHE_NAME = 'v1.3.0';
 const ASSETS = [
 	'./',
 	'./index.html',
@@ -32,20 +32,16 @@ self.addEventListener('activate', (e) => {
 	self.clients.claim();
 });
 
-// Stale-While-Revalidate: serve do cache E atualiza em background
 self.addEventListener('fetch', (e) => {
 	e.respondWith(
 		caches.match(e.request).then((cachedResponse) => {
-			// Sempre busca atualização da rede em background
 			const fetchPromise = fetch(e.request).then((networkResponse) => {
-				// Atualiza o cache com a resposta nova
 				caches.open(CACHE_NAME).then((cache) => {
 					cache.put(e.request, networkResponse.clone());
 				});
 				return networkResponse;
 			});
 
-			// Retorna o cache imediatamente (se existir) ou espera pela rede
 			return cachedResponse || fetchPromise;
 		})
 	);
