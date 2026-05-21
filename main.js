@@ -41,27 +41,27 @@ function gerarPDF() {
     // 4. Definição do PDF
     const docDefinition = {
         pageSize: 'A4',
-        pageMargins: [30, 30, 30, 30],
+        pageMargins: [40, 25, 40, 25], // Reduzidas as margens superior/inferior para ganhar espaço útil
         info: { title: `Contrato - ${cli.nome} - ${servico.data}` },
         content: [
             { text: 'CONTRATO DE PRESTAÇÃO DE SERVIÇOS', style: 'header' },
 
-            { text: 'Pelo presente instrumento particular, as partes abaixo qualificadas têm, entre si, justo e contratado o seguinte:', margin: [0, 0, 0, 20], fontSize: 11, alignment: 'justify' },
+            { text: 'Pelo presente instrumento particular, as partes abaixo qualificadas têm, entre si, justo e contratado o seguinte:', margin: [0, 0, 0, 10], fontSize: 10, alignment: 'justify' },
 
             // 1. Identificação
             { text: '1. DAS PARTES', style: 'sectionTitle' },
 
             { text: 'CONTRATADA:', style: 'label' },
             { text: `${eu.nome}, inscrito(a) no CPF/CNPJ sob nº ${eu.cpf}, com endereço em ${eu.end}, ${eu.cidade}.`, style: 'textBody' },
-            { text: `Dados Bancários (Pix): ${eu.pix}`, style: 'textBody', margin: [0, 0, 0, 10] },
+            { text: `Dados Bancários (Pix): ${eu.pix}`, style: 'textBody', margin: [0, 0, 0, 4] },
 
             { text: 'CONTRATANTE:', style: 'label' },
-            { text: `${cli.nome}, inscrito(a) no CPF/CNPJ sob nº ${cli.cpf}, residente em ${cli.end}.`, style: 'textBody', margin: [0, 0, 0, 10] },
+            { text: `${cli.nome}, inscrito(a) no CPF/CNPJ sob nº ${cli.cpf}, residente em ${cli.end}.`, style: 'textBody', margin: [0, 0, 0, 6] },
 
             // 2. Objeto e Escopo
             { text: '2. DO OBJETO E ESCOPO', style: 'sectionTitle' },
             { text: `O presente contrato tem por objeto a prestação de serviços de ${servico.objeto}, a serem realizados com zelo e capacidade técnica pela CONTRATADA, conforme detalhamento abaixo:`, style: 'textBody' },
-            { ul: listaItens, style: 'textBody', margin: [20, 10, 0, 10] },
+            { ul: listaItens, style: 'textBody', margin: [15, 3, 0, 5] },
 
             // 3. Valor
             { text: '3. DO VALOR E PAGAMENTO', style: 'sectionTitle' },
@@ -71,42 +71,42 @@ function gerarPDF() {
                     `Sinal de R$ ${valorMetade} (50%) neste ato, a título de arras e reserva de agenda;`,
                     `Saldo de R$ ${valorMetade} (50%) na conclusão e entrega dos serviços.`
                 ],
-                style: 'textBody', margin: [20, 5, 0, 10]
+                style: 'textBody', margin: [15, 2, 0, 5]
             },
 
-            // 4. Prazo (Agora vem do formulário)
+            // 4. Prazo
             { text: '4. DOS PRAZOS', style: 'sectionTitle' },
-            { text: `O prazo estipulado para a execução e entrega dos serviços é de: ${servico.prazo}, podendo ser prorrogado mediante acordo entre as partes ou por motivos de força maior.`, style: 'textBody' },
+            { text: `O prazo estipulado para a execução e entrega dos serviços é de: ${servico.prazo}, podendo ser prorrogado mediante acordo entre as partes ou por motivos de força maior.`, style: 'textBody', margin: [0, 0, 0, 4] },
 
-            // 5. Cláusula extra (Agora vem do formulário)
+            // 5. Cláusula extra
             { text: '5. DISPOSIÇÕES ESPECÍFICAS', style: 'sectionTitle' },
-            { text: `${servico.extra}`, style: 'textBody' },
+            { text: `${servico.extra}`, style: 'textBody', margin: [0, 0, 0, 4] },
 
             // 6. Rescisão
             { text: '6. DA RESCISÃO E OBRIGAÇÕES', style: 'sectionTitle' },
-            { text: 'O descumprimento de qualquer cláusula deste contrato faculta à parte prejudicada a rescisão do mesmo. Em caso de desistência imotivada pelo CONTRATANTE, o valor do sinal não será reembolsado, servindo para cobrir custos operacionais (Art. 418 do Código Civil).', style: 'textBody' },
+            { text: 'O descumprimento de qualquer cláusula deste contrato faculta à parte prejudicada a rescisão do mesmo. Em caso de desistência imotivada pelo CONTRATANTE, o valor do sinal não será reembolsado, servindo para cobrir custos operacionais (Art. 418 do Código Civil).', style: 'textBody', margin: [0, 0, 0, 4] },
 
             // 7. Foro
             { text: '7. DO FORO', style: 'sectionTitle' },
-            { text: `Fica eleito o Foro da Comarca de ${eu.cidade} para dirimir quaisquer dúvidas oriundas deste contrato, renunciando as partes a qualquer outro.`, style: 'textBody' },
+            { text: `Fica eleito o Foro da Comarca de ${eu.cidade} para dirimir quaisquer dúvidas oriundas deste contrato, renunciando as partes a qualquer outro.`, style: 'textBody', margin: [0, 0, 0, 6] },
 
-            { text: 'E por estarem justos e contratados, assinam o presente.', style: 'textBody', margin: [0, 10, 0, 10] },
+            { text: 'E por estarem justos e contratados, assinam o presente.', style: 'textBody', margin: [0, 2, 0, 6] },
 
             // Assinaturas
-            { text: `${eu.cidade}, ${dataFormatada}.`, alignment: 'center', margin: [0, 10, 0, 30] },
+            { text: `${eu.cidade}, ${dataFormatada}.`, alignment: 'center', margin: [0, 5, 0, 15] },
 
             {
                 columns: [
-                    { stack: [{ text: '____________________________________' }, { text: `${eu.nome}\nCONTRATADA`, fontSize: 9, bold: true }], alignment: 'center' },
-                    { stack: [{ text: '____________________________________' }, { text: `${cli.nome}\nCONTRATANTE`, fontSize: 9, bold: true }], alignment: 'center' }
+                    { stack: [{ text: '____________________________________' }, { text: `${eu.nome}\nCONTRATADA`, fontSize: 8.5, bold: true }], alignment: 'center' },
+                    { stack: [{ text: '____________________________________' }, { text: `${cli.nome}\nCONTRATANTE`, fontSize: 8.5, bold: true }], alignment: 'center' }
                 ]
             }
         ],
         styles: {
-            header: { fontSize: 16, bold: true, alignment: 'center', margin: [0, 0, 0, 25] },
-            sectionTitle: { fontSize: 12, bold: true, marginTop: 10, marginBottom: 5, decoration: 'underline' },
-            label: { fontSize: 11, bold: true, marginBottom: 2 },
-            textBody: { fontSize: 11, alignment: 'justify', lineHeight: 1.0 }
+            header: { fontSize: 14, bold: true, alignment: 'center', margin: [0, 0, 0, 12] },
+            sectionTitle: { fontSize: 11, bold: true, marginTop: 6, marginBottom: 2, decoration: 'underline' },
+            label: { fontSize: 10, bold: true, marginBottom: 1 },
+            textBody: { fontSize: 10, alignment: 'justify', lineHeight: 1.05 }
         }
     };
 
