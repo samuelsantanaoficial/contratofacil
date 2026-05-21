@@ -116,7 +116,7 @@ function gerarPDF() {
 }
 
 // Funções de Persistência e Backup (Atualizadas para salvar APENAS dados da empresa)
-function salvarConfiguracoes() {pdfMake.createPdf(docDefinition).download(nomeArquivo);
+function salvarConfiguracoes() {
     const dados = {
         nome: document.getElementById('meuNome').value,
         cpf: document.getElementById('meuCPF').value,
@@ -124,6 +124,7 @@ function salvarConfiguracoes() {pdfMake.createPdf(docDefinition).download(nomeAr
         endereco: document.getElementById('meuEndereco').value,
         cidade: document.getElementById('minhaCidade').value
     };
+    
     localStorage.setItem('configContrato', JSON.stringify(dados));
 
     // Feedback visual mais sutil (opcional, ou manter o alert)
