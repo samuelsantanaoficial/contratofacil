@@ -125,17 +125,16 @@ function salvarConfiguracoes() {
         cidade: document.getElementById('minhaCidade').value
     };
     
+    // Salva no navegador
     localStorage.setItem('configContrato', JSON.stringify(dados));
 
-    // Feedback visual mais sutil (opcional, ou manter o alert)
-    alert('Dados salvos com sucesso!');
-
-    // Fecha o Modal usando a API do Bootstrap 5
+    // Força o fechamento do modal do jeito certo (sem dar erro no celular)
     const modalEl = document.getElementById('modalConfig');
-    const modal = bootstrap.Modal.getInstance(modalEl);
-    if (modal) {
-        modal.hide();
-    }
+    const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+    modal.hide();
+
+    // Mostra o aviso por último
+    setTimeout(() => alert('Dados salvos com sucesso!'), 300);
 }
 
 function carregarDados() {
@@ -153,12 +152,20 @@ function carregarDados() {
 
 function exportarBackup() {
     const dados = localStorage.getItem('configContrato');
-    if (!dados) return alert('Nada salvo para backup!');
+    if (!dados) {
+        alert('Nada salvo para backup!');
+        return;
+    }
+    
     const blob = new Blob([dados], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = `backup-${new Date().toISOString().split('T')[0]}.json`;
+    a.download = `backup-contratos.json`;
+    
+    // O SEGREDO PARA O CELULAR: O botão precisa existir no HTML antes de ser "clicado"
+    document.body.appendChild(a); 
     a.click();
+    document.body.removeChild(a); // Remove a sujeira depois
 }
 
 function importarBackup(input) {
